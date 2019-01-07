@@ -5,7 +5,7 @@ import * as cardActions from '../actions/index.js';
 import Button from 'antd/lib/button';
 import Input from 'antd/lib/input';
 import Form from 'antd/lib/form';
-import Modal from 'antd/lib/modal';
+import Modal from 'antd/lib/modal'
 
 const FormItem = Form.Item;
 const {TextArea} = Input;

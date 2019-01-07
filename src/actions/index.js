@@ -1,7 +1,35 @@
-export const addCard = card => ({
-  type: 'ADD_CARD',
-  card
+export const addBoard = input => ({
+  type: 'ADD_BOARD',
+  input
 })
+
+export const addList = input => ({
+  type: 'ADD_LIST',
+  input
+})
+
+
+export const addCard = payload => ({
+  type: 'ADD_CARD',
+  payload
+})
+
+export const editCard2 = payload => ({
+  type: 'EDIT_CARD',
+  payload
+})
+
+export const editCard = payload => (dispatch,getState) => {
+  if (getState().cards.byId[payload.cardid].updating === true) {
+    dispatch(({type: 'EDIT_CARD',payload}))
+  }
+}
+
+export const updatingCard = payload => ({
+  type: 'UPDATING_CARD',
+  payload
+})
+
 
 export const toggleCard = id => ({
   type: 'TOGGLE_CARD',

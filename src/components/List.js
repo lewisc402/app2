@@ -1,30 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
-import * as cardActions from '../actions/index.js';
-import Card from 'antd/lib/card';
-import Input from 'antd/lib/input';
-import CardItem from './Card.js';
-import AddCard from './AddCard.js';
+import { bindActionCreators } from 'redux';
+import {Input,Button} from 'antd';
+import CreateCardForm from './CreateCardForm.js';
+import Card from './CardItem.js';
+import { moveCard } from '../actions';
+import '../App.css';
 
-const {TextArea} = Input;
-const List = ({cards,addCard,idlist,moveCard,...props}) => {
+const List = ({list,byId,moveCard,...props}) => {
   return(
-    <div style={{width: 300, marginRight: 30}}>
-    <Card>
-      <AddCard idlist={idlist}/>
-      {Object.values(cards).filter(card => card.idlist == idlist).sort((a,b) => a.idposition - b.idposition).map(card => <CardItem moveCard={moveCard} card={card}/>)}
-    </Card>
+    <div>
+      <div className="listContainer">
+        <div className="listHeader">
+           <span>{list.name}</span>
+           <span style={{float: "right"}}><CreateCardForm id={list.id}></CreateCardForm></span>
+        </div>
+        <div className="listContent">
+          {Object.values(byId).sort((a,b) => a.idposition - b.idposition).map(itm => <Card moveCard={moveCard} card={itm}></Card>)}
+        </div>
+      </div>
     </div>
   )
 }
 
 const mapStateToProps = (state,ownProps) => ({
-  cards: state.cards.byId
+  byId: Object.values(state.cards.byId).filter(obj => obj.listId === ownProps.id)
 })
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators(cardActions, dispatch)
+  return bindActionCreators({moveCard}, dispatch)
  // addCard: card => dispatch(addCard(card))
 }
 // export default List
